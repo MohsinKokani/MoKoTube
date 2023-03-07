@@ -1,0 +1,320 @@
+:root {
+    --bgColor: #0f0f0f;
+    --fgColor: #f1f1f1;
+    --Color1: #c7c7c7;
+    --Color2: #0a81ffd8;
+    --Color3: #272727;
+    font-size: 62.5%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bgColor);
+    color: var(--fgColor);
+}
+
+/* handle scroll styling */
+/* width */
+::-webkit-scrollbar {
+    height: 0.7rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--Color3);
+    border-radius: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+body::-webkit-scrollbar {
+    width: 1rem;
+}
+
+/* main logo , search and user  */
+.masterHead {
+    width: 100%;
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 5px;
+}
+
+.masterHead i {
+    font-size: 3.4rem;
+}
+
+.mokoTubeIcon {
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    font-size: 3rem;
+    width: fit-content;
+    color: var(--fgColor);
+}
+
+.mokoTubeIcon img,
+.masterHead img {
+    width: 3.5rem;
+    margin: 0 1rem;
+}
+
+.searchField {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.searchField input {
+    width: 85%;
+    height: 3.2rem;
+    padding: 2.1rem 1.8rem;
+    color: var(--fgColor);
+    background: transparent;
+    border-top-left-radius: 2.5rem;
+    border-bottom-left-radius: 2.5rem;
+    border: 1px solid var(--fgColor);
+    font-size: 2.2rem;
+    border-right: none;
+}
+
+.searchField input:focus {
+    border: none;
+    outline: 1px solid var(--Color2);
+}
+
+.searchField i {
+    border: 1px solid var(--fgColor);
+    color: var(--fgColor);
+    height: 3.2rem;
+    padding: 2.1rem 1.8rem;
+    width: 15%;
+    border-top-right-radius: 2.5rem;
+    border-bottom-right-radius: 2.5rem;
+    font-size: 2.2rem;
+    background: var(--Color3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* navbar ends */
+
+/* :horizontal scroll */
+.train {
+    width: 100%;
+    padding: 0.5rem;
+    display: flex;
+    overflow-x: scroll;
+    transition: all 0.5ms ease;
+}
+
+.coach {
+    background: var(--Color3);
+    font-size: 2.2rem;
+    margin: 0.5rem;
+    color: var(--fgColor);
+    white-space: nowrap;
+    padding: 1rem;
+    border-radius: 1.5rem;
+}
+
+/* main feeding videos section  */
+.videos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.video {
+    width: 28rem;
+    margin: 2rem;
+}
+
+.channel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.channel img {
+    object-fit: cover;
+    height: 94%;
+    width: 80%;
+    border-radius: 50%;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 17rem;
+}
+
+.thumbnail img {
+    object-fit: cover;
+    height: 94%;
+    width: 100%;
+}
+
+.author img {
+    object-fit: cover;
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    margin-right: 10px;
+}
+
+.details {
+    display: flex;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+}
+
+.title h3 {
+    color: var(--fgColor);
+    line-height: 1.5rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+}
+
+
+.title a b,
+span {
+    text-decoration: none;
+    color: var(--Color1);
+    font-size: 1.2rem;
+}
+
+.channelBanner {
+    width: 100%;
+    padding-top: 20%;
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.channelDetailHeader {
+    width: 95%;
+    margin: auto;
+    padding: 1rem;
+    display: flex;
+    min-width: auto;
+    border-bottom: 2px solid var(--Color3);
+}
+
+.channelDetailHeader .channelImage {
+    width: 18%;
+    padding-top: 18%;
+    border-radius: 50%;
+    border: 1px solid red;
+    background-position: center;
+    background-size: cover;
+}
+
+.channelDetailHeader .moreDetails {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1rem;
+}
+
+.moreDetails h5 {
+    font-size: 2rem;
+    margin: 0.5rem;
+}
+
+.moreDetails p {
+    font-size: 1.8rem;
+    margin: 0.5rem;
+    white-space: nowrap;
+    color: var(--Color1);
+}
+
+/* chanelabout  */
+.channelAbout {
+    width: 95%;
+    position: relative;
+    margin: auto;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 3rem;
+}
+
+.channelDescription h4 {
+    color: var(--fgColor);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.channelDescription {
+    width: 60%;
+    margin-top: 0.5rem;
+    color: var(--fgColor);
+    font-size: 1.7rem;
+    line-height: 1.7rem;
+    border-bottom: var(--Color1);
+}
+
+.statistics h6,
+.statistics p {
+    color: var(--fgColor);
+    padding: 1rem;
+    font-size: 1.7rem;
+    border-bottom: 2px solid var(--Color3);
+    white-space: nowrap;
+}
+
+
+/* video details  */
+.container {
+    position: relative;
+    margin: auto;
+    width: 90%;
+    padding-bottom: 50.25%;
+    height: 0;
+    border: 1px solid red;
+}
+.container iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width:980px) {
+    :root {
+        font-size: 55%;
+    }
+}
+
+@media screen and (max-width:580px) {
+    :root {
+        font-size: 40%;
+    }
+}
+
+@media screen and (max-width:420px) {
+    :root {
+        font-size: 34%;
+    }
+}
+
+@media screen and (max-width:350px) {
+    :root {
+        font-size: 26%;
+    }
+}
