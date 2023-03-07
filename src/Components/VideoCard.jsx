@@ -1,7 +1,7 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { myImg } from ".";
 import React from "react";
-let uploadedTime = (date) => {
+export const uploadedTime = (date) => {
     let ans = "";
     const thatDate = new Date(date);
     // Convert date to milliseconds
@@ -47,7 +47,7 @@ const VideoCard = ({ video }) => (
                 <h3>
                     {video.snippet.title}
                 </h3>
-                <Link to={`channel/${video.snippet.channelId}`} style={{ textDecoration: "none" }}>
+                <Link to={`/channel/${video.snippet.channelId}`} style={{ textDecoration: "none" }}>
                     <b>
                         {video.snippet.channelTitle}
                     </b>

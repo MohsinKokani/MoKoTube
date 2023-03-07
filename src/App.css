@@ -47,8 +47,10 @@ body::-webkit-scrollbar {
     padding: 8px 5px;
 }
 
-.masterHead i {
+.masterHead i,
+.alertArea i {
     font-size: 3.4rem;
+    color: var(--fgColor);
 }
 
 .mokoTubeIcon {
@@ -148,8 +150,8 @@ body::-webkit-scrollbar {
 
 .channel img {
     object-fit: cover;
-    height: 94%;
-    width: 80%;
+    width: 65%;
+    margin-bottom: 0.5rem;
     border-radius: 50%;
 }
 
@@ -217,7 +219,7 @@ span {
     width: 18%;
     padding-top: 18%;
     border-radius: 50%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     background-position: center;
     background-size: cover;
 }
@@ -235,7 +237,8 @@ span {
     margin: 0.5rem;
 }
 
-.moreDetails p {
+.moreDetails p,
+.moreDetails p a {
     font-size: 1.8rem;
     margin: 0.5rem;
     white-space: nowrap;
@@ -269,6 +272,7 @@ span {
 }
 
 .statistics h6,
+.alertArea p,
 .statistics p {
     color: var(--fgColor);
     padding: 1rem;
@@ -285,7 +289,8 @@ span {
     width: 90%;
     padding-bottom: 50.25%;
     height: 0;
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    margin-bottom: 1rem;
 }
 .container iframe{
     position: absolute;
@@ -294,7 +299,39 @@ span {
     width: 100%;
     height: 100%;
 }
+.moreDetails p i {
+    color: var(--fgColor);
+    font-size: 1.4rem;
+}
 
+/* alert section  */
+.alertArea{
+    margin: auto;
+    min-width: 60%;
+    /* height: 28rem; */
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    aspect-ratio: 4/2;
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 1px solid var(--Color1);
+    background-color: #ffb005;
+    box-shadow: 0.1rem 0.1rem 5px var(--fgColor);
+}
+.alertArea i {
+    position: absolute;
+    right: 5%;
+    top: 5%;
+}
+.alertArea h1{
+    font-size: 8rem;
+    color: var(--fgColor);
+}
 @media screen and (max-width:980px) {
     :root {
         font-size: 55%;
