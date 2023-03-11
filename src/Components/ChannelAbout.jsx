@@ -2,7 +2,6 @@
 const ChannelAbout = ({ channelPage }) => {
     return (
         <>
-            {console.log(channelPage)}
             <div className="channelAbout">
                 <div className="channelDescription">
                     <h4>Description</h4>

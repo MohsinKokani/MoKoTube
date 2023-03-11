@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import FetchFromApi from "../utils/FetchFromApi";
 import { Feed } from '.';
 import { uploadedTime } from "./VideoCard";
-// import FetchFromApi from "../utils/FetchFromApi";
 
 
 const VideoDetails = ({ setErrorStatus }) => {
@@ -32,7 +31,10 @@ const VideoDetails = ({ setErrorStatus }) => {
             })
         FetchFromApi(`videos?part=contentDetails%2Csnippet%2Cstatistics&id=${id}`)
             .then((data) => {
-                console.log(data.items[0])
+                if (data?.error) {
+                    setErrorStatus({ present: true, code: data.error.code, message: data.error.message });
+                    return;
+                }
                 setVideoDetails(data?.items[0]);
             })
             .catch((error) => {
@@ -45,15 +47,14 @@ const VideoDetails = ({ setErrorStatus }) => {
                 } else {
                     setErrorStatus({
                         present: true,
-                        code: error.response.status,
-                        message: error.response.data.message
+                        code: error.response?.status,
+                        message: error.response?.data.message
                     })
                 }
             })
         // eslint-disable-next-line
     }, [id])
-
-    if (!videoDetails.snippet) return;
+    if (videoDetails === undefined || videoDetails.length === 0) return;
     return (
         <>
             <div className="container">
@@ -65,7 +66,7 @@ const VideoDetails = ({ setErrorStatus }) => {
 
                 <p style={{ paddingBottom: '1rem' }}>
                     <Link to={`/channel/${videoDetails.snippet.channelId}`} style={{ textDecoration: "none" }}>
-                        {videoDetails.snippet.channelTitle} 
+                        {videoDetails.snippet.channelTitle}
                     </Link> •&nbsp;
                     {parseInt(videoDetails.statistics.viewCount).toLocaleString()} views •&nbsp;
                     {uploadedTime(videoDetails.snippet.publishedAt)} ago &nbsp;&nbsp;&nbsp;&nbsp;

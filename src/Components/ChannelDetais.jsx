@@ -2,21 +2,47 @@ import { useParams, Link, Outlet } from 'react-router-dom'
 import { useEffect } from 'react';
 import FetchFromApi from '../utils/FetchFromApi';
 
-const ChannelDetails = ({ setChannelVideos, channelPage, setChannelPage }) => {
+const ChannelDetails = ({ setChannelVideos, channelPage, setChannelPage, setErrorStatus }) => {
     const { id } = useParams();
 
 
     useEffect(() => {
         FetchFromApi(`channels?part=snippet%2Cstatistics&id=${id}`)
             .then((data) => {
-                // console.log(data)
-                setChannelPage(data.items[0]);
-            })
+                setChannelPage(data?.items?.[0]);
+            }).catch((error) => {
+                if (error.code === "ERR_NETWORK") {
+                  setErrorStatus({
+                    present: true,
+                    code: 0,
+                    message: "Please connect to Internet"
+                  })
+                } else {
+                  setErrorStatus({
+                    present: true,
+                    code: error.code,
+                    message: error.message
+                  })
+                }
+              })
         FetchFromApi(`search?channelId=${id}&part=snippet%2Cid&order=date`)
             .then((data) => {
-                // console.log(data)
-                setChannelVideos(data.items);
-            })
+                setChannelVideos(data?.items);
+            }).catch((error) => {
+                if (error.code === "ERR_NETWORK") {
+                  setErrorStatus({
+                    present: true,
+                    code: 0,
+                    message: "Please connect to Internet"
+                  })
+                } else {
+                  setErrorStatus({
+                    present: true,
+                    code: error.code,
+                    message: error.message
+                  })
+                }
+              })
         // eslint-disable-next-line
     }, [])
     return (

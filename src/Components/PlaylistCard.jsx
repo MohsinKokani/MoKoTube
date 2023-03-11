@@ -1,10 +1,13 @@
 
+import { Link } from "react-router-dom";
 import { myImg } from ".";
 const PlaylistCard = ({ playlist }) => (
     <>
-        <div className="thumbnail" key={playlist.id.playlistId}>
-            <img src={playlist.snippet.thumbnails.medium.url} alt="playlist" />
-        </div>
+        <Link to={`/playlist/${playlist.id.playlistId}`}>
+            <div className="thumbnail" key={playlist.id.playlistId}>
+                <img src={playlist.snippet.thumbnails.medium.url} alt="playlist" />
+            </div>
+        </Link>
         <div className="details">
             <div className="author">
                 <img src={myImg} alt="auth" />
@@ -13,9 +16,11 @@ const PlaylistCard = ({ playlist }) => (
                 <h3>
                     Playlist - {playlist.snippet.title}
                 </h3>
-                <i >
-                   {playlist.snippet.channelTitle}
-                </i>
+                <Link to={`/channel/${playlist.snippet.channelId}`} style={{ textDecoration: "none" }}>
+                    <b>
+                        {playlist.snippet.channelTitle}
+                    </b>
+                </Link>
             </div>
         </div>
     </>
