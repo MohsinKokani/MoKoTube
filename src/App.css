@@ -47,6 +47,9 @@ body::-webkit-scrollbar {
 .masterHead {
     width: 100%;
     /* border: 1px solid red; */
+    position: sticky;
+    top:0;
+    background:linear-gradient(180deg, var(--Color3),95%, rgba(0,0,0,0));
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -421,6 +424,16 @@ button i{
 .singlePlaylistVideo img{
     width: 16rem;
     height: 9rem;
+}
+
+.bottomLoader{
+    width: 100%;
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+}
+.bottomLoader img{
+    width: 10rem;
 }
 @media screen and (max-width:980px) {
     :root {

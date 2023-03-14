@@ -11,5 +11,6 @@ export {default as History} from "./History";
 export {default as ShowError} from "./ShowError";
 export {default as PlayListDetails} from "./PlayListDetails";
 export {default as ChannelAbout} from "./ChannelAbout";
+export {default as Loader} from "./Assets/Loader.gif";
 export {default as logo} from "./Assets/Logo.png"
 export {default as myImg} from "./Assets/User.png"

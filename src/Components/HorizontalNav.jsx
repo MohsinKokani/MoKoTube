@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import FetchFromApi from "../utils/FetchFromApi";
-import { Feed } from './';
+import { Feed, Loader } from './';
 let categories = [
     'Shorts',
     'Live',
@@ -19,41 +18,25 @@ let categories = [
     'Weather'
 ]
 
-const HorizontalNav = ({handleApiError, handleApiCall,setErrorStatus }) => {
+const HorizontalNav = ({ handleApiCall, handleScroll }) => {
     const [category, setCategory] = useState('all');
     const [categoryVideos, setCategoryVideos] = useState([]);
     const [nextPageToken, setNextPageToken] = useState('');
-    const handleScroll = () => {
-        if (
-            window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
-        ) {
-            // User has scrolled to the bottom of the page, fetch the next page of data
-            FetchFromApi(`search?part=snippet&q=${category}&pageToken=${nextPageToken}`)
-                .then((data) => {
-                    if (data?.error) {
-                        setErrorStatus({ present: true, code: data.error.code, message: data.error.message });
-                        return;
-                    }
-                    setCategoryVideos((prevVideos) => [...prevVideos, ...data?.items]);
-                    setNextPageToken(data?.nextPageToken);
-                })
-                .catch((error) => {
-                    handleApiError(error);
-                })
-        }
-    };
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        handleApiCall(category, setCategoryVideos, setNextPageToken);
+        setLoading(true);
+        setCategoryVideos([]);
+        handleApiCall(`search?part=snippet&q=${category}`, setCategoryVideos, setNextPageToken, setLoading);
         // eslint-disable-next-line
     }, [category]);
     useEffect(() => {
         const handleTrain = (e) => {
             const container = document.querySelector(".train");
             if (e.deltaY > 0)
-                container.scrollLeft += 50;
+                container.scrollLeft += 100;
             else
-                container.scrollLeft -= 50;
+                container.scrollLeft -= 100;
             e.preventDefault();
         }
         //for horizontal scroll 
@@ -64,13 +47,30 @@ const HorizontalNav = ({handleApiError, handleApiCall,setErrorStatus }) => {
         }
     }, []);
 
+    let reference={
+        lock:1
+    }
+    const atScrollEnd = () => {
+        if (
+            window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight-5 &&
+            reference.lock
+        ) {
+            reference.lock=0;//close the lock
+            setLoading(true);
+            handleScroll(setCategoryVideos, setNextPageToken, `search?part=snippet&q=${category}&pageToken=${nextPageToken}`, setLoading, reference);
+        }
+    }
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
+        if (nextPageToken === undefined) { 
+            window.removeEventListener('scroll', atScrollEnd);
+            return;
+        }
+        window.addEventListener('scroll', atScrollEnd);
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', atScrollEnd);
         }
         // eslint-disable-next-line
-    }, [nextPageToken]);
+    }, [nextPageToken, category]);
     return (
         <>
             <div className="train">
@@ -88,6 +88,16 @@ const HorizontalNav = ({handleApiError, handleApiCall,setErrorStatus }) => {
                 }
             </div>
             <Feed videos={categoryVideos} />
+            <div className="bottomLoader">
+                {
+                    (loading) &&
+                    <img src={Loader} alt="Loading" style={{ margin: 'auto', width: '10rem' }} />
+                }
+                {
+                    (!loading && categoryVideos.length === 0) &&
+                    <h2>No Videos Found</h2>
+                }
+            </div>
         </>
     )
 }

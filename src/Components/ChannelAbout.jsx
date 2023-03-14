@@ -1,5 +1,6 @@
 
 const ChannelAbout = ({ channelPage }) => {
+    if(channelPage===undefined) return;
     return (
         <>
             <div className="channelAbout">

@@ -21,6 +21,8 @@ MoKo Tube is a YouTube clone app that offers several features for a seamless vie
 
 - **Channel Statistics Page:** Users can view detailed channel statistics for a selected YouTube channel, including the number of views, likes, dislikes, and comments.
 
+- **Infinite Scroll:** This project includes an example of how to implement infinite scroll using a scroll event in React. Also prevents potential problems caused by race conditions.
+
 MoKo Tube is built using React.js and utilizes the YouTube v3 API to fetch data from YouTube. With these features, the app offers a user-friendly interface that mimics the functionality of YouTube.
 
 ## API Endpoints

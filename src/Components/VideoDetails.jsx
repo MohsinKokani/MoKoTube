@@ -1,80 +1,60 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
-import FetchFromApi from "../utils/FetchFromApi";
-import { Feed } from '.';
+import { Feed, Loader } from '.';
 import { uploadedTime } from "./VideoCard";
 
-
-const VideoDetails = ({ setErrorStatus }) => {
+const VideoDetails = ({ handleApiCall }) => {
     const { id } = useParams();
     const [relatedVideos, setRelatedvideos] = useState([]);
-    const [videoDetails, setVideoDetails] = useState([]);
+    const [videoDetails, setVideoDetails] = useState({});
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
-        FetchFromApi(`search?relatedToVideoId=${id}&part=id%2Csnippet&type=video`)
-            .then((data) => {
-                setRelatedvideos(data.items);
-            })
-            .catch((error) => {
-                if (error.code === "ERR_NETWORK") {
-                    setErrorStatus({
-                        present: true,
-                        code: 0,
-                        message: "Please connect to Internet"
-                    })
-                } else {
-                    setErrorStatus({
-                        present: true,
-                        code: error.response.status,
-                        message: error.response.data.message
-                    })
-                }
-            })
-        FetchFromApi(`videos?part=contentDetails%2Csnippet%2Cstatistics&id=${id}`)
-            .then((data) => {
-                if (data?.error) {
-                    setErrorStatus({ present: true, code: data.error.code, message: data.error.message });
-                    return;
-                }
-                setVideoDetails(data?.items[0]);
-            })
-            .catch((error) => {
-                if (error.code === "ERR_NETWORK") {
-                    setErrorStatus({
-                        present: true,
-                        code: 0,
-                        message: "Please connect to Internet"
-                    })
-                } else {
-                    setErrorStatus({
-                        present: true,
-                        code: error.response?.status,
-                        message: error.response?.data.message
-                    })
-                }
-            })
+        setLoading(true)
+        setRelatedvideos([]);
+        handleApiCall(`search?relatedToVideoId=${id}&part=id%2Csnippet&type=video`
+                        ,setRelatedvideos
+                        ,undefined
+                        ,setLoading);
+        handleApiCall(`videos?part=contentDetails%2Csnippet%2Cstatistics&id=${id}`
+                        ,setVideoDetails
+                        ,undefined,
+                        setLoading);
         // eslint-disable-next-line
     }, [id])
-    if (videoDetails === undefined || videoDetails.length === 0) return;
+    if (videoDetails?.[0] === undefined) return;
     return (
         <>
             <div className="container">
                 <iframe width="560" height="315" src={`https://www.youtube.com/embed/${id}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen>
                 </iframe>
             </div>
-            <div className="moreDetails" style={{ width: '90%', margin: 'auto', borderBottom: '3px solid gray' }}>
-                <h5>{videoDetails.snippet.title}</h5>
+            {
+                videoDetails?.[0].length === 0 &&
+                <h2>Unable to Load Video Details</h2>
+            }
+            {
+                videoDetails?.[0].length !== 0 &&
+                <div className="moreDetails" style={{ width: '90%', margin: 'auto', borderBottom: '3px solid gray' }}>
+                    <h5>{videoDetails?.[0].snippet.title}</h5>
 
-                <p style={{ paddingBottom: '1rem' }}>
-                    <Link to={`/channel/${videoDetails.snippet.channelId}`} style={{ textDecoration: "none" }}>
-                        {videoDetails.snippet.channelTitle}
-                    </Link> •&nbsp;
-                    {parseInt(videoDetails.statistics.viewCount).toLocaleString()} views •&nbsp;
-                    {uploadedTime(videoDetails.snippet.publishedAt)} ago &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa-solid fa-heart"></i>
-                    {videoDetails.statistics.likeCount}
-                    <i className="fa-solid fa-heart"></i>
-                </p>
-            </div>
+                    <p style={{ paddingBottom: '1rem' }}>
+                        <Link to={`/channel/${videoDetails?.[0].snippet.channelId}`} style={{ textDecoration: "none" }}>
+                            {videoDetails?.[0].snippet.channelTitle}
+                        </Link> •&nbsp;
+                        {parseInt(videoDetails?.[0].statistics.viewCount).toLocaleString()} views •&nbsp;
+                        {uploadedTime(videoDetails?.[0].snippet.publishedAt)} ago &nbsp;&nbsp;&nbsp;&nbsp;
+                        <i className="fa-solid fa-heart"></i>
+                        {videoDetails?.[0].statistics.likeCount}
+                        <i className="fa-solid fa-heart"></i>
+                    </p>
+                </div>
+            }
+            {
+                loading &&
+                <div className="bottomLoader">
+                    <img src={Loader} alt="Loading..." />
+                </div>
+            }
             <Feed videos={relatedVideos} />
         </>
     )
