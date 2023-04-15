@@ -33,24 +33,24 @@ export const uploadedTime = (date) => {
     return ans;
 }
 const VideoCard = ({ video }) => {
-    const addToHistory=()=>{
-        let watched=[];
+    const addToHistory = () => {
+        let watched = [];
         let localStorageVideos = localStorage.getItem("watchedVideos");
-        if( localStorageVideos ===null || localStorageVideos ==="null"){
+        if (localStorageVideos === null || localStorageVideos === "null") {
             watched.push(video);
-            localStorage.setItem('watchedVideos',JSON.stringify(watched));
+            localStorage.setItem('watchedVideos', JSON.stringify(watched));
             return;
         }
-        else{
-            watched=JSON.parse(localStorageVideos);
+        else {
+            watched = JSON.parse(localStorageVideos);
         }
-        let isUnique=true;
-        watched.forEach((element)=>{
-            if(element.id.videoId===video.id.videoId) isUnique=false;
+        let isUnique = true;
+        watched.forEach((element) => {
+            if (element.id.videoId === video.id.videoId) isUnique = false;
         })
-        if(!isUnique) return;
+        if (!isUnique) return;
         watched.push(video);
-        localStorage.setItem('watchedVideos',JSON.stringify(watched));
+        localStorage.setItem('watchedVideos', JSON.stringify(watched));
     }
     return (
 
@@ -62,7 +62,9 @@ const VideoCard = ({ video }) => {
             </Link>
             <div className="details">
                 <div className="author">
-                    <img src={myImg} alt="auth" />
+                    <Link to={`/channel/${video.snippet.channelId}`}>
+                        <img src={myImg} alt="auth" />
+                    </Link>
                 </div>
                 <div className="title">
                     <h3>

@@ -10,7 +10,9 @@ const PlaylistCard = ({ playlist }) => (
         </Link>
         <div className="details">
             <div className="author">
-                <img src={myImg} alt="auth" />
+                <Link to={`/channel/${playlist.snippet.channelId}`}>
+                    <img src={myImg} alt="auth" />
+                </Link>
             </div>
             <div className="title">
                 <h3>
