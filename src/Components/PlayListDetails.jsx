@@ -32,7 +32,7 @@ const PlayListDetails = ({ handleApiCall, handleScroll }) => {
     }
 
     useEffect(() => {
-        if (nextPageToken === undefined) { 
+        if (nextPageToken === undefined) {
             window.removeEventListener('scroll', atScrollEnd);
             return;
         }
@@ -52,17 +52,31 @@ const PlayListDetails = ({ handleApiCall, handleScroll }) => {
             </div>
             <div className="moreDetails" style={{ width: '90%', margin: 'auto', borderBottom: '3px solid gray' }}>
                 <h5>{playlistVideos[curIdx]?.snippet.title}</h5>
-
                 <p style={{ paddingBottom: '1rem' }}>
                     <Link to={`/channel/${playlistVideos[0]?.snippet.channelId}`} style={{ textDecoration: "none" }}>
                         {playlistVideos[curIdx]?.snippet.channelTitle}
                     </Link> •&nbsp;
                     {uploadedTime(playlistVideos[curIdx]?.snippet?.publishedAt)} ago &nbsp;&nbsp;&nbsp;&nbsp;
-
                 </p>
+                <div className="playlist-controls">
+                    <i
+                        onClick={(curIdx === 0) ? () => { } : () => { setCurIdx(curIdx - 1) }}
+                        style={{ opacity: (curIdx === 0) ? '0.2' : '1' }}
+                        className="fa-solid fa-backward-step">
+                    </i>
+                    &nbsp; {curIdx + 1} &nbsp;
+                    <i
+                        onClick=
+                        {
+                            (curIdx === playlistVideos.length - 1) ?
+                                () => { } : () => { setCurIdx(curIdx + 1) }
+                        }
+                        style={{ opacity: (curIdx === playlistVideos.length - 1) ? '0.2' : '1' }}
+                        className="fa-solid fa-forward-step"></i>
+                </div>
             </div>
             {
-                playlistVideos.map((video,idx) => {
+                playlistVideos.map((video, idx) => {
                     let thisVideoId = video.snippet.resourceId.videoId;
                     return (
 
@@ -70,7 +84,7 @@ const PlayListDetails = ({ handleApiCall, handleScroll }) => {
                             className="singlePlaylistVideo"
                             key={thisVideoId}
                             onClick={() => { setCurIdx(idx) }}
-                            style={{ border: idx === curIdx && '1px solid white' }}
+                            style={{ border: idx === curIdx && '2px solid royalblue' }}
                         >
                             <img src={video.snippet.thumbnails.medium.url} alt="thumb" />
                             <div className="moreDetails" style={{ width: '72%' }}>

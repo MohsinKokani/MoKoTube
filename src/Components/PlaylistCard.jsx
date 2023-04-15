@@ -6,6 +6,9 @@ const PlaylistCard = ({ playlist }) => (
         <Link to={`/playlist/${playlist.id.playlistId}`}>
             <div className="thumbnail" key={playlist.id.playlistId}>
                 <img src={playlist.snippet.thumbnails.medium.url} alt="playlist" />
+                <div className="overlay-playlist-icon">
+                    <i className="fa-solid fa-layer-group"></i>
+                </div>
             </div>
         </Link>
         <div className="details">
