@@ -383,6 +383,7 @@ span {
     min-width: 60%;
     /* height: 28rem; */
     position: fixed;
+    z-index: 6;
     top: 25%;
     left: 50%;
     transform: translateX(-50%);

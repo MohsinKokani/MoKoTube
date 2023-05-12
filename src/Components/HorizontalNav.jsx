@@ -19,7 +19,7 @@ let categories = [
 ]
 
 const HorizontalNav = ({ handleApiCall, handleScroll }) => {
-    const [category, setCategory] = useState('all');
+    const [category, setCategory] = useState('');
     const [categoryVideos, setCategoryVideos] = useState([]);
     const [nextPageToken, setNextPageToken] = useState('');
     const [loading, setLoading] = useState(false);
@@ -31,6 +31,7 @@ const HorizontalNav = ({ handleApiCall, handleScroll }) => {
         // eslint-disable-next-line
     }, [category]);
     useEffect(() => {
+        document.querySelector('.searchField > input').value = '';
         const handleTrain = (e) => {
             const container = document.querySelector(".train");
             if (e.deltaY > 0)
@@ -47,21 +48,21 @@ const HorizontalNav = ({ handleApiCall, handleScroll }) => {
         }
     }, []);
 
-    let reference={
-        lock:1
+    let reference = {
+        lock: 1
     }
     const atScrollEnd = () => {
         if (
-            window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight-5 &&
+            window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 5 &&
             reference.lock
         ) {
-            reference.lock=0;//close the lock
+            reference.lock = 0;//close the lock
             setLoading(true);
             handleScroll(setCategoryVideos, setNextPageToken, `search?part=snippet&q=${category}&pageToken=${nextPageToken}`, setLoading, reference);
         }
     }
     useEffect(() => {
-        if (nextPageToken === undefined) { 
+        if (nextPageToken === undefined) {
             window.removeEventListener('scroll', atScrollEnd);
             return;
         }
