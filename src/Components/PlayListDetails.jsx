@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
 import { Loader } from ".";
-import { uploadedTime } from "./VideoCard";
+import { uploadedTime } from "../utils/Formatter";
 
 
 const PlayListDetails = ({ handleApiCall, handleScroll }) => {

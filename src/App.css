@@ -175,6 +175,7 @@ body::-webkit-scrollbar {
     white-space: nowrap;
     padding: 1rem;
     border-radius: 1.5rem;
+    cursor: pointer;
 }
 
 /* main feeding videos section  */
@@ -309,6 +310,16 @@ span {
     margin: 0.5rem;
     white-space: nowrap;
     color: var(--Color1);
+}
+
+.moreDetails p span {
+    background-color: var(--fgColor);
+    padding: 0.6rem;
+    color: var(--Color3);
+    display: inline-block;
+    margin: 0 0.5rem;
+    border-radius: 0.4rem;
+    font-weight: 600;
 }
 
 .playlist-controls{

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
 import { Feed, Loader } from '.';
-import { uploadedTime } from "./VideoCard";
+import { duration, uploadedTime } from "../utils/Formatter.js";
 
 const VideoDetails = ({ handleApiCall }) => {
     const { id } = useParams();
@@ -12,13 +12,13 @@ const VideoDetails = ({ handleApiCall }) => {
         setLoading(true)
         setRelatedvideos([]);
         handleApiCall(`search?relatedToVideoId=${id}&part=id%2Csnippet&type=video`
-                        ,setRelatedvideos
-                        ,undefined
-                        ,setLoading);
+            , setRelatedvideos
+            , undefined
+            , setLoading);
         handleApiCall(`videos?part=contentDetails%2Csnippet%2Cstatistics&id=${id}`
-                        ,setVideoDetails
-                        ,undefined,
-                        setLoading);
+            , setVideoDetails
+            , undefined,
+            setLoading);
         // eslint-disable-next-line
     }, [id])
     if (videoDetails?.[0] === undefined) return;
@@ -37,7 +37,7 @@ const VideoDetails = ({ handleApiCall }) => {
                 <div className="moreDetails" style={{ width: '90%', margin: 'auto', borderBottom: '3px solid gray' }}>
                     <h5>{videoDetails?.[0].snippet.title}</h5>
 
-                    <p style={{ paddingBottom: '1rem' }}>
+                    <p>
                         <Link to={`/channel/${videoDetails?.[0].snippet.channelId}`} style={{ textDecoration: "none" }}>
                             {videoDetails?.[0].snippet.channelTitle}
                         </Link> •&nbsp;
@@ -46,6 +46,19 @@ const VideoDetails = ({ handleApiCall }) => {
                         <i className="fa-solid fa-heart"></i>
                         {videoDetails?.[0].statistics.likeCount}
                         <i className="fa-solid fa-heart"></i>
+                    </p>
+
+                    <p>
+                        <span>
+                            {
+                                videoDetails[0].contentDetails?.duration === 'P0D' &&
+                                <>Live</>
+                            }
+                            {
+                                videoDetails[0].contentDetails?.duration !== 'P0D' &&
+                                duration(videoDetails[0].contentDetails?.duration)
+                            }
+                        </span>
                     </p>
                 </div>
             }
