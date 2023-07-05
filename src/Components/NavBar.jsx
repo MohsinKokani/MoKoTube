@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { logo, myImg } from './index';
+import { logo } from './index';
 
 
 const NavBar = () => {
@@ -70,7 +70,6 @@ const NavBar = () => {
                     <input type="text" placeholder='Search' onKeyDown={(e) => { searchOnEnter(e) }} />
                     <i className="fa-solid fa-magnifying-glass" onClick={() => { searchIt() }}></i>
                 </div>
-                <img src={myImg} alt="logo" />
             </div>
         </>
     )

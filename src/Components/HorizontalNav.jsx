@@ -15,7 +15,10 @@ let categories = [
     'Cooking',
     'Meditation',
     'Technology',
-    'Weather'
+    'Weather',
+    'Sports',
+    'Podcast',
+    'Cartoons'
 ]
 
 const HorizontalNav = ({ handleApiCall, handleScroll }) => {

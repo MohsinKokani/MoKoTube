@@ -84,6 +84,7 @@ body::-webkit-scrollbar {
     width: 50%;
     display: flex;
     align-items: center;
+    padding-right: 1rem;
 }
 
 .searchField input {
@@ -163,6 +164,7 @@ body::-webkit-scrollbar {
     width: 100%;
     padding: 0.5rem;
     display: flex;
+    justify-content: space-between;
     overflow-x: scroll;
     transition: all 0.5ms ease;
 }
@@ -471,9 +473,16 @@ button i{
 .bottomLoader img{
     width: 10rem;
 }
+
+@media screen and (min-width:1280px) {
+    :root {
+        font-size: 53%;
+    }
+}
+
 @media screen and (max-width:980px) {
     :root {
-        font-size: 55%;
+        font-size: 47%;
     }
 }
 
