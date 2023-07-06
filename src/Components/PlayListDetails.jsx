@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
-import { Loader } from ".";
+import { Loader, nullImg } from ".";
 import { uploadedTime } from "../utils/Formatter";
 
 
@@ -8,7 +8,7 @@ const PlayListDetails = ({ handleApiCall, handleScroll }) => {
     const { id } = useParams();
     const [playlistVideos, setPlayListVideos] = useState([]);
     const [curIdx, setCurIdx] = useState(0);
-    const [loading, setLoading] = useState('');
+    const [loading, setLoading] = useState(true);
     const [nextPageToken, setNextPageToken] = useState('');
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const PlayListDetails = ({ handleApiCall, handleScroll }) => {
     const atScrollEnd = () => {
         //lock variable is a LOCK to prevent race condition. (hapens when user hits bottom twice before it loads)
         if (
-            window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 5 &&
+            window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 15 &&
             reference.lock
         ) {
             reference.lock = 0;//close the lock
@@ -43,7 +43,13 @@ const PlayListDetails = ({ handleApiCall, handleScroll }) => {
         // eslint-disable-next-line
     }, [nextPageToken]);
 
-    if (playlistVideos === undefined || playlistVideos.length === 0) return <h1>Loading...</h1>
+    if (playlistVideos === undefined || playlistVideos.length === 0) {
+        return (
+            <div className="bottomLoader">
+                <img src={Loader} alt="Loading" style={{ margin: 'auto', width: '10rem' }} />
+            </div>
+        );
+    }
     return (
         <>
             <div className="container">
@@ -86,7 +92,7 @@ const PlayListDetails = ({ handleApiCall, handleScroll }) => {
                             onClick={() => { setCurIdx(idx) }}
                             style={{ border: idx === curIdx && '2px solid royalblue' }}
                         >
-                            <img src={video.snippet.thumbnails.medium.url} alt="thumb" />
+                            <img src={video.snippet.thumbnails.medium?.url || nullImg} alt="thumb" />
                             <div className="moreDetails" style={{ width: '72%' }}>
                                 <h5>{video.snippet.title}</h5>
 
