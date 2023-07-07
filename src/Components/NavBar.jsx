@@ -10,10 +10,8 @@ const NavBar = () => {
     useEffect(() => {
         toggleMode();
         const handleKeyDown = (event) => {
-            console.log(event.keyCode)
             if (event.altKey && event.keyCode === 76) {
                 document.querySelector('.searchField>input').focus();
-                event.preventDefault();
             }
         };
         document.addEventListener('keydown', handleKeyDown);

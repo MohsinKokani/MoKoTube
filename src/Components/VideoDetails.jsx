@@ -8,6 +8,7 @@ const VideoDetails = ({ handleApiCall }) => {
     const [relatedVideos, setRelatedvideos] = useState([]);
     const [videoDetails, setVideoDetails] = useState({});
     const [loading, setLoading] = useState(false);
+    const [showDescription, setShowDescription] = useState(false);
     useEffect(() => {
         setLoading(true)
         setRelatedvideos([]);
@@ -59,7 +60,13 @@ const VideoDetails = ({ handleApiCall }) => {
                                 duration(videoDetails[0].contentDetails?.duration)
                             }
                         </span>
+                        <button id="description-btn" onClick={() => { setShowDescription(!showDescription) }}>
+                            Description <span style={{ transform: showDescription ? 'rotate(180deg)' : '' }}>🔻</span>
+                        </button>
                     </p>
+                    <pre className="description-box" style={{ display: showDescription ? 'block' : 'none' }}>
+                        {videoDetails[0].snippet.description}
+                    </pre>
                 </div>
             }
             {
