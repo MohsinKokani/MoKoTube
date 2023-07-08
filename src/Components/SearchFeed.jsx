@@ -20,23 +20,23 @@ const SearchFeed = ({ handleApiCall, handleScroll }) => {
         // eslint-disable-next-line
     }, [searchedTerm]);
 
-    let reference={
-        lock:1
+    let reference = {
+        lock: 1
     }
     const atScrollEnd = () => {
         //lock variable is a LOCK to prevent race condition. (hapens when user hits bottom twice before it loads)
         if (
-            window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight-5 && 
+            window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 15 &&
             reference.lock
         ) {
-            reference.lock=0;//close the lock
+            reference.lock = 0;//close the lock
             setLoading(true);
             handleScroll(setSearchedVideo, setSearchedVideoToken, `search?part=snippet&q=${searchedTerm}&pageToken=${searcedVideoToken}`, setLoading, reference);
         }
-     }
-    
+    }
+
     useEffect(() => {
-        if (searcedVideoToken === undefined) { 
+        if (searcedVideoToken === undefined) {
             window.removeEventListener('scroll', atScrollEnd);
             return;
         }
@@ -45,7 +45,7 @@ const SearchFeed = ({ handleApiCall, handleScroll }) => {
             window.removeEventListener('scroll', atScrollEnd);
         }
         // eslint-disable-next-line
-    }, [searcedVideoToken,searchedTerm]);
+    }, [searcedVideoToken, searchedTerm]);
     return (
         <>
             <Feed videos={searchedVideos} />

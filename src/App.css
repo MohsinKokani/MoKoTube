@@ -269,6 +269,10 @@ span {
     font-size: 1.2rem;
 }
 
+.title a b {
+    overflow-wrap: anywhere;
+}
+
 .channelBanner {
     width: 100%;
     padding-top: 20%;
@@ -306,10 +310,10 @@ span {
 .moreDetails h5 {
     font-size: 2rem;
     margin: 0.5rem;
+    overflow-wrap: anywhere;
 }
 
-.moreDetails p,
-.moreDetails p a {
+.moreDetails p {
     font-size: 1.8rem;
     margin: 0.5rem;
     white-space: nowrap;
@@ -324,6 +328,14 @@ span {
     margin: 0 0.5rem;
     border-radius: 0.4rem;
     font-weight: 600;
+}
+
+.handleLongName {
+    max-width: 20rem;
+    overflow: hidden;
+    display: inline-flex;
+    text-decoration: none;
+    color: var(--fgColor);
 }
 
 .playlist-controls {

@@ -8,7 +8,7 @@ const ChannelDetails = ({ handleApiCall, handleScroll }) => {
     const [channelPage, setChannelPage] = useState(null);
     const [channelvideos, setChannelVideos] = useState([]);
     const [showSection, setShowSection] = useState('Videos');
-    
+
     useEffect(() => {
         setloading(true);
         handleApiCall(`channels?part=snippet%2Cstatistics&id=${id}`, setChannelPage, undefined, setloading);
@@ -22,7 +22,7 @@ const ChannelDetails = ({ handleApiCall, handleScroll }) => {
     }
     const atScrollEnd = () => {
         if (
-            showSection === "Videos" && window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight-5 &&
+            showSection === "Videos" && window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 15 &&
             reference.lock
         ) {
             reference.lock = 0;//close the lock
@@ -31,7 +31,7 @@ const ChannelDetails = ({ handleApiCall, handleScroll }) => {
         }
     }
     useEffect(() => {
-        if (nextPageToken === undefined) { 
+        if (nextPageToken === undefined) {
             window.removeEventListener('scroll', atScrollEnd);
             return;
         }
@@ -54,13 +54,15 @@ const ChannelDetails = ({ handleApiCall, handleScroll }) => {
                 >
                 </div>
                 <div className="moreDetails">
-                    <h5>
+                    <h5 style={{ overflowWrap: 'unset', overflow: 'auto' }}>
                         {channelPage?.[0].snippet.title}
                     </h5>
                     <p>
-                        {channelPage?.[0].snippet.customUrl}&nbsp;&nbsp;&nbsp;
-                        {parseInt(channelPage?.[0].statistics.subscriberCount).toLocaleString()} subscribers&nbsp;&nbsp;&nbsp;
-                        {channelPage?.[0].statistics.videoCount} videos
+                        <strong className='handleLongName'>{channelPage?.[0].snippet.customUrl}</strong>
+                        &nbsp;&nbsp;&nbsp;
+                        <strong>{parseInt(channelPage?.[0].statistics.subscriberCount).toLocaleString()} subscribers</strong>
+                        &nbsp;&nbsp;&nbsp;
+                        <strong>{channelPage?.[0].statistics.videoCount} videos</strong>
                     </p>
                     <p>
                         {channelPage?.[0].snippet.description.slice(0, 55)}...&nbsp;&nbsp;

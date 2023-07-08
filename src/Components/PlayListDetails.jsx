@@ -10,6 +10,7 @@ const PlayListDetails = ({ handleApiCall, handleScroll }) => {
     const [curIdx, setCurIdx] = useState(0);
     const [loading, setLoading] = useState(true);
     const [nextPageToken, setNextPageToken] = useState('');
+    const [showDescription, setShowDescription] = useState(false);
 
     useEffect(() => {
         handleApiCall(`playlistItems?playlistId=${id}&part=snippet`, setPlayListVideos, setNextPageToken, setLoading);
@@ -59,11 +60,17 @@ const PlayListDetails = ({ handleApiCall, handleScroll }) => {
             <div className="moreDetails" style={{ width: '90%', margin: 'auto', borderBottom: '3px solid gray' }}>
                 <h5>{playlistVideos[curIdx]?.snippet.title}</h5>
                 <p style={{ paddingBottom: '1rem' }}>
-                    <Link to={`/channel/${playlistVideos[0]?.snippet.channelId}`} style={{ textDecoration: "none" }}>
+                    <Link to={`/channel/${playlistVideos[0]?.snippet.channelId}`} className="handleLongName">
                         {playlistVideos[curIdx]?.snippet.channelTitle}
                     </Link> •&nbsp;
                     {uploadedTime(playlistVideos[curIdx]?.snippet?.publishedAt)} ago &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button id="description-btn" onClick={() => { setShowDescription(!showDescription) }}>
+                        Description <span style={{ transform: showDescription ? 'rotate(180deg)' : '' }}>🔻</span>
+                    </button>
                 </p>
+                <pre className="description-box" style={{ display: showDescription ? 'block' : 'none' }}>
+                    {playlistVideos[curIdx].snippet.description}
+                </pre>
                 <div className="playlist-controls">
                     <i
                         onClick={(curIdx === 0) ? () => { } : () => { setCurIdx(curIdx - 1) }}
@@ -83,12 +90,10 @@ const PlayListDetails = ({ handleApiCall, handleScroll }) => {
             </div>
             {
                 playlistVideos.map((video, idx) => {
-                    let thisVideoId = video.snippet.resourceId.videoId;
                     return (
-
                         <div
                             className="singlePlaylistVideo"
-                            key={thisVideoId}
+                            key={idx}
                             onClick={() => { setCurIdx(idx) }}
                             style={{ border: idx === curIdx && '2px solid royalblue' }}
                         >

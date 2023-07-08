@@ -56,7 +56,7 @@ const HorizontalNav = ({ handleApiCall, handleScroll }) => {
     }
     const atScrollEnd = () => {
         if (
-            window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 5 &&
+            window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 15 &&
             reference.lock
         ) {
             reference.lock = 0;//close the lock

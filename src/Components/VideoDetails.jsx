@@ -39,7 +39,7 @@ const VideoDetails = ({ handleApiCall }) => {
                     <h5>{videoDetails?.[0].snippet.title}</h5>
 
                     <p>
-                        <Link to={`/channel/${videoDetails?.[0].snippet.channelId}`} style={{ textDecoration: "none" }}>
+                        <Link to={`/channel/${videoDetails?.[0].snippet.channelId}`} className="handleLongName">
                             {videoDetails?.[0].snippet.channelTitle}
                         </Link> •&nbsp;
                         {parseInt(videoDetails?.[0].statistics.viewCount).toLocaleString()} views •&nbsp;
