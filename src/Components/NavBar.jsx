@@ -66,6 +66,9 @@ const NavBar = () => {
                 <p onClick={() => { navigate('/'); toggleSideNav() }}>Home</p>
                 <p onClick={() => { toggleMode(); toggleSideNav(); }}>{currentMode} Mode</p>
                 <p onClick={() => { navigate('/history'); toggleSideNav() }}>Recently Watched</p>
+                <p onClick={() => { window.location.href = 'https://mokotube-v2.netlify.app/'; }}>
+                    <button className="special-btn">Try Version-2</button>
+                </p>
             </div>
             <div className="masterHead">
                 <i className="fa-solid fa-bars" onClick={toggleSideNav}></i>
