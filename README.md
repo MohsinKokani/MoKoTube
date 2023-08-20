@@ -28,7 +28,7 @@ MoKo Tube is built using React.js and utilizes the YouTube v3 API to fetch data 
 ## API Endpoints
 |Endpoint Name|	Description|	Required Parameters|	Optional Parameters| 
 | :---:   | :---: | :---: | :---: |
-Suggested Videos|	Returns a list of suggested videos based on the user's activity and the activity of similar users.|	part, relatedToVideoId, type|	maxResults|
+Suggested Videos - Deprecated|	Returns a list of suggested videos based on the user's activity and the activity of similar users.|	part, relatedToVideoId, type|	maxResults|
 Search|	Lets users search for videos based on a query string.|	part, q|	regionCode, maxResults, order, pageToken|
 Video Details|Returns details about a specific video.|	part, id|	N/A|
 Channel Details|	Returns details about a specific YouTube channel.|	part, id|	N/A|

@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
-import { Feed, Loader } from '.';
+import { Loader } from '.';
 import { duration, uploadedTime } from "../utils/Formatter.js";
 
 const VideoDetails = ({ handleApiCall }) => {
     const { id } = useParams();
-    const [relatedVideos, setRelatedvideos] = useState([]);
     const [videoDetails, setVideoDetails] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [showDescription, setShowDescription] = useState(false);
     useEffect(() => {
         setLoading(true)
-        setRelatedvideos([]);
-        handleApiCall(`search?relatedToVideoId=${id}&part=id%2Csnippet&type=video`
-            , setRelatedvideos
-            , undefined
-            , setLoading);
         handleApiCall(`videos?part=contentDetails%2Csnippet%2Cstatistics&id=${id}`
             , setVideoDetails
             , undefined,
             setLoading);
         // eslint-disable-next-line
     }, [id])
-    if (videoDetails?.[0] === undefined) return;
+    if (videoDetails?.[0] === undefined) return (
+        <>
+            <div className="container">
+                <iframe width="560" height="315" src={`https://www.youtube.com/embed/${id}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen>
+                </iframe>
+            </div>
+            {
+                loading &&
+                <div className="bottomLoader">
+                    <img src={Loader} alt="Loading..." />
+                </div>
+            }
+        </>
+    );
     return (
         <>
             <div className="container">
@@ -69,13 +76,6 @@ const VideoDetails = ({ handleApiCall }) => {
                     </pre>
                 </div>
             }
-            {
-                loading &&
-                <div className="bottomLoader">
-                    <img src={Loader} alt="Loading..." />
-                </div>
-            }
-            <Feed videos={relatedVideos} />
         </>
     )
 }
